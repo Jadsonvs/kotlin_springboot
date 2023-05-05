@@ -22,6 +22,7 @@ class SecurityConfiguration(
         http?.//Se http não for null
             authorizeRequests()?.//Autoriza requisição htpp. configurar as regras de autorização de acesso
                 antMatchers("/topicos")?.hasAnyAuthority("LEITURA_ESCRITA")?.
+                antMatchers("/respostas")?.hasAnyAuthority("LEITURA_ESCRITA")?.
                 anyRequest()?.//Quaisquer outras requisições
                 authenticated()?.//Devem está autenticadas(exigi login e senha).
                 and()?.
