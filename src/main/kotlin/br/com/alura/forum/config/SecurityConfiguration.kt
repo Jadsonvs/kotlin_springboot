@@ -9,20 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-
-
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
        private val userDetailsService: UserDetailsService
-
 ): WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http?.//Se http não for null
             authorizeRequests()?.//Autoriza requisição htpp. configurar as regras de autorização de acesso
                 antMatchers("/topicos")?.hasAnyAuthority("LEITURA_ESCRITA")?.
-                antMatchers("/respostas")?.hasAnyAuthority("LEITURA_ESCRITA")?.
                 anyRequest()?.//Quaisquer outras requisições
                 authenticated()?.//Devem está autenticadas(exigi login e senha).
                 and()?.

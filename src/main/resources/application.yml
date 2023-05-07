@@ -11,6 +11,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  queries:
+    user-query
+
   h2:
     console:
       enabled: true
