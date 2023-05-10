@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
 
+
 @Component
-class JTWUtil {
+class JTWUtil() {
 
     private val expiration: Long = 60000
 
@@ -18,7 +19,7 @@ class JTWUtil {
         return Jwts.builder()
                 .setSubject(username)//Definir o subject(geralmente usamos o ID do usuário)
                 .setExpiration(Date(System.currentTimeMillis() + expiration))//Definindo expiração do Token
-                .signWith(SignatureAlgorithm.HS256, secret.toByteArray())//Criando a assinatura e definindo o Secret
+                .signWith(SignatureAlgorithm.HS256, secret)//Criando a assinatura e definindo o Secret
                 .compact()//Compactar o token
     }
 

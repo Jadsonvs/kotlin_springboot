@@ -3,6 +3,7 @@ package br.com.alura.forum.service
 
 import br.com.alura.forum.model.Usuario
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Service
 
 class UserDetail(
     private val usuario: Usuario
