@@ -35,11 +35,11 @@ class SecurityConfiguration {
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder{                    //Defini o tipo de criptografia a ser usada e criptofra a senha -> BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder{                    //Defini o tipo de criptografia a ser usada na senha do usuário, antes de armazená-li ou compará-li -> BCryptPasswordEncoder()
         return BCryptPasswordEncoder()
     }
     @Bean
-    fun authenticationManager(                               //Maneira como vai registrar a autenticação
+    fun authenticationManager(                               //Maneira usada para registrar e autenticar  as credenciais dos usuários durante o processo de autenticação.
         http: HttpSecurity,
         passwordEncoder: PasswordEncoder,
         userDetailsService: UsuarioService
