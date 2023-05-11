@@ -1,16 +1,16 @@
 package br.com.alura.forum.service
 
-
 import br.com.alura.forum.model.Usuario
 import org.springframework.security.core.userdetails.UserDetails
 
 class UserDetail(
-    private val usuario: Usuario
+    val usuario: Usuario?
 ): UserDetails {
+    override fun getAuthorities() = usuario?.role
 
-    override fun getAuthorities() = usuario.role
-    override fun getPassword() = usuario.senha
-    override fun getUsername() = usuario.email
+    override fun getPassword() = usuario?.senha
+
+    override fun getUsername() = usuario?.email
 
     override fun isAccountNonExpired() = true
 
