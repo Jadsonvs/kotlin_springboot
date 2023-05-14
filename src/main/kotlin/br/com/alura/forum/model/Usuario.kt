@@ -9,7 +9,7 @@ data class Usuario(
     val id: Long? = null,
     val nome: String,
     val email: String,
-    val senha: String,
+    val password: String,
 
     @JsonIgnore //Irá ignorá esse atributo para exibição
     @ManyToMany(fetch = FetchType.EAGER)//Tipo de relacionamento e irá trazer toda tabela

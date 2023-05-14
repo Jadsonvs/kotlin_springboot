@@ -11,8 +11,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-  queries:
-    user-query
 
   h2:
     console:
@@ -20,4 +18,4 @@ spring:
       path: /h2-console
 
 jwt:
-  secret: secreto
+  secret: lEAnEZSLi8qbVhnHe3Cixkq7Ty2wMs6VVu8pjPZsNfrymC5pwvxTFMQmaGIKXCwGXsV47ImKLB9W42bqoy7R8L49fAH233yOkiIhQVSqmPceHduTzrzy0tv6R2YKUlm4tVb7ERnOwnT2qdJOt8cjpvd7n2F5bSXsDXp5CBJZOsP3uoHLlHUA2YvdO17NHU58Fi38JCVmVyddMKOVfwk7iD8Ws5xZOsXhBQd8hYi0ml3XTHGY3QTckQWCLkqnAdtZ
