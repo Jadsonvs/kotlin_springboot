@@ -1,1 +1,0 @@
-alter table usuario add column senha text

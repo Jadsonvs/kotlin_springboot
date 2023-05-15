@@ -3,12 +3,12 @@ package br.com.alura.forum.service
 import br.com.alura.forum.model.Usuario
 import org.springframework.security.core.userdetails.UserDetails
 
-class UserDetail(
+class UserDetails(
     val usuario: Usuario?
 ): UserDetails {
     override fun getAuthorities() = usuario?.role
 
-    override fun getPassword() = usuario?.senha
+    override fun getPassword() = usuario?.password
 
     override fun getUsername() = usuario?.email
 

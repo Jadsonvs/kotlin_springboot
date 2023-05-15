@@ -25,7 +25,7 @@ class UsuarioService(
 
     override fun loadUserByUsername(username: String?): UserDetails {
         val usuario = repository.findByEmail(username) ?: throw NotFoundException(notFoundMessage)
-        return UserDetail(usuario)
+        return UserDetails(usuario)
     }
 
 }
