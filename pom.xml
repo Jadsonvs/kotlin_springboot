@@ -98,7 +98,6 @@
 			<version>6.0.3</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -121,13 +120,11 @@
 			<scope>compile</scope> <!-- Not runtime -->
 		</dependency>
 
-
 		<dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-compiler</artifactId>
             <version>1.7.22</version>
         </dependency>
-
 
     </dependencies>
 
@@ -168,5 +165,23 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<activatedProperties>dev</activatedProperties>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- Deixa um valor ativo com padrão -->
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activatedProperties>prod</activatedProperties>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
