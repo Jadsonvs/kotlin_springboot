@@ -24,11 +24,11 @@ class JWTUtil(private val usuarioService: UsuarioService) {
 
     fun generatedToken(username: String, authorities: MutableCollection<out GrantedAuthority>): String?{
         return Jwts.builder()
-                .setSubject(username)                                                      //Definir o subject(geralmente usamos o ID do usuário)
-                .claim("role", authorities)                                         //Adiciona uma ou mais afirmação de função(ROLE) ao token de segurança
-                .setIssuedAt(Date(System.currentTimeMillis() + expiration))         //Definindo expiração do Token
-                .signWith(Keys.hmacShaKeyFor(secret.toByteArray()), HS256)              //Criando a assinatura com o secret e o algoritmo
-                .compact()                                                             //Compacta toda configuração do token e converte para o formato String
+                .setSubject(username)                                               //Definir o subject(geralmente usamos o ID do usuário)
+                .claim("role", authorities)                                  //Adiciona uma ou mais afirmação de função(ROLE) ao token de segurança
+                .setIssuedAt(Date(System.currentTimeMillis() + expiration))  //Definindo expiração do Token
+                .signWith(Keys.hmacShaKeyFor(secret.toByteArray()), HS256)       //Criando a assinatura com o secret e o algoritmo
+                .compact()                                                      //Compacta toda configuração do token e converte para o formato String
     }
 
     //Método verifica se um token JWT é válido ou não
@@ -41,7 +41,7 @@ class JWTUtil(private val usuarioService: UsuarioService) {
         }
     }
 
-    //decodificar o token JWT e retornar uma instância de Authentication
+    //A função tem o objetivo de garantir que o usuário continue logad, caso seu token for válido, colocando as credenciais no contenxto da aplicação.
     fun getAuthentication(jwt: String?): Authentication {
 
         val username = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.toByteArray())).build().parseClaimsJws(jwt).body.subject

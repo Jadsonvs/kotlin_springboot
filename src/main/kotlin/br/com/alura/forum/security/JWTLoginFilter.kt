@@ -23,7 +23,6 @@ class JWTLoginFilter(
         val token = UsernamePasswordAuthenticationToken(username, password)
         return authManager.authenticate(token)
     }
-
     //Gera o nosso token autenticado e devole o mesmo
     override fun successfulAuthentication(
         request: HttpServletRequest?,
@@ -36,7 +35,6 @@ class JWTLoginFilter(
 
         // Adicionar o token à resposta HTTP ou tomar outras ações necessárias
         val token = jwtUtil.generatedToken(user.username, user.authorities)
-
         response?.addHeader("Authorization", "Bearer $token")
     }
 

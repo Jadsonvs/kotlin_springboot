@@ -23,8 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class SecurityConfiguration(
     private val configuration: AuthenticationConfiguration,
-    private val jwtUtil: JWTUtil,
-    private val userDetailsService: UsuarioService
+    private val jwtUtil: JWTUtil
 ) {
     @Bean
     fun configure(http: HttpSecurity): SecurityFilterChain {
@@ -34,7 +33,7 @@ class SecurityConfiguration(
             .authorizeHttpRequests { authorize ->  authorize                                              //Autoriza requisição htpp. configurar as regras de autorização de acess
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/h2-console").permitAll()
-                .requestMatchers("/topicos").hasAnyAuthority("LEITURA_ESCRITA")
+                .requestMatchers("/topicos").hasAuthority("LEITURA_ESCRITA")
                 .anyRequest().authenticated()
 
             }
