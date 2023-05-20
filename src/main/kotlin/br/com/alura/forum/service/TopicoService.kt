@@ -9,6 +9,7 @@ import br.com.alura.forum.repository.TopicoRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class TopicoService(
@@ -51,18 +52,11 @@ class TopicoService(
         val topico = repository.findById(atualizacaoTopicoDTO.id)
                 .orElseThrow { NotFoundException(notFoundMessage) }
 
-        val topicoAtualizado = Topico(
-                id = atualizacaoTopicoDTO.id,
-                titulo = atualizacaoTopicoDTO.titulo,
-                mensagem = atualizacaoTopicoDTO.mensagem,
-                autor = topico.autor,
-                curso = topico.curso,
-                respostas = topico.respostas,
-                status = topico.status,
-                dataCriacao = topico.dataCriacao
-        )
-        repository.save(topicoAtualizado)
-        return topicoViewConverter.converterFrom(topicoAtualizado)
+        topico.titulo = atualizacaoTopicoDTO.titulo
+        topico.mensagem = atualizacaoTopicoDTO.mensagem
+        topico.dataAlteracao = LocalDate.now()
+
+        return topicoViewConverter.converterFrom(topico)
     }
 
     fun deletar(id: Long) {

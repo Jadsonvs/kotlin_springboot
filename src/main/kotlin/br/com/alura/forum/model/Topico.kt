@@ -2,14 +2,15 @@ package br.com.alura.forum.model
 
 import jakarta.persistence.*
 import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
 data class Topico(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    val titulo: String,
-    val mensagem: String,
+    var titulo: String,
+    var mensagem: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     @ManyToOne
     val curso: Curso,
@@ -18,6 +19,7 @@ data class Topico(
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
     @OneToMany(mappedBy = "topico")
-    val respostas: List<Resposta> = ArrayList()
+    val respostas: List<Resposta> = ArrayList(),
+    var dataAlteracao: LocalDate? = null
 
 )
