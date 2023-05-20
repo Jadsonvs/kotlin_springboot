@@ -131,10 +131,10 @@
             <version>1.7.22</version>
         </dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.mockk/mockk -->
+		<!-- https://mvnrepository.com/artifact/io.mockk/mockk-jvm -->
 		<dependency>
 			<groupId>io.mockk</groupId>
-			<artifactId>mockk</artifactId>
+			<artifactId>mockk-jvm</artifactId>
 			<version>1.13.5</version>
 			<scope>test</scope>
 		</dependency>
