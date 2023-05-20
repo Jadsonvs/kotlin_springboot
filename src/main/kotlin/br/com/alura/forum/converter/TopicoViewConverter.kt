@@ -12,7 +12,8 @@ class TopicoViewConverter: Converter<Topico, TopicoViewDTO> {
             titulo = from.titulo,
             mensagem = from.mensagem,
             status = from.status,
-            dataCriacao = from.dataCriacao
+            dataCriacao = from.dataCriacao,
+           dataAlteracao = from.dataAlteracao
         )
     }
 

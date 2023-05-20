@@ -10,3 +10,6 @@ create table topico(
     foreign key(curso_id) references curso(id),
     foreign key(autor_id) references usuario(id)
 );
+
+insert into topico(id, titulo, mensagem, data_criacao, status, curso_id, autor_id)
+values(1, 'Duvida sobre kotlin', 'Minha funcao let nao funciona', '2012-12-24 12:00:00','NAO_RESPONDIDO', 1, 1);
