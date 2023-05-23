@@ -20,16 +20,14 @@ class TopicoService(
 ) {
 
     fun listar(nomeCurso: String?, paginacao: Pageable): Page<TopicoViewDTO> {
-        val topicos = if (nomeCurso == null) {
-            repository.findAll(paginacao)
-        } else {
+        val topicos = nomeCurso?.let {
             repository.findByCursoNome(nomeCurso, paginacao)
-        }
-        return topicos.map { topico ->
-            topicoViewConverter.converterFrom(topico)
+        } ?: repository.findAll(paginacao)
+
+        return topicos.map { t ->
+            topicoViewConverter.converterFrom(t)
         }
     }
-
     fun buscarPorIdTopico(id: Long): Topico {
         return repository.findById(id)
                 .orElseThrow { NotFoundException(notFoundMessage) }
