@@ -17,9 +17,9 @@ class JWTAuthenticationFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilt
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val token = request.getHeader("Authorization").replace("Bearer", "").trim()
+        val token: String? = request.getHeader("Authorization")?.replace("Bearer", "")
 
-        if (jwtUtil.isValid(token)){
+        if (token != null && jwtUtil.isValid(token)){
             //Verifica se o token JWT é válido
 
             val authentication: Authentication = jwtUtil.getAuthentication(token)

@@ -32,7 +32,8 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .authorizeHttpRequests { authorize ->  authorize                                              //Autoriza requisição htpp. configurar as regras de autorização de acess
                 .requestMatchers(HttpMethod.POST,"/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/h2-console").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                 .requestMatchers("/topicos").hasAuthority("LEITURA_ESCRITA")
                 .anyRequest().authenticated()
 
@@ -53,7 +54,12 @@ class SecurityConfiguration(
 
 //Maneira O authenticationManager usada para registrar e autenticar  as credenciais dos usuários durante o processo de autenticação.
 
-
+//    @Bean
+//    fun webSecurityCustimizer(): WebSecurityCustomizer{
+//        return WebSecurityCustomizer { web ->
+//            web.ignoring().requestMatchers("/swagger-ui/*", "/v3/api-docs/**")
+//        }
+//    }
 
 
 

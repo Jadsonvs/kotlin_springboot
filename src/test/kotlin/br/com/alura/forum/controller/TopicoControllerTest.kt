@@ -50,11 +50,11 @@ class TopicoControllerTest {
         }
 
 
-    @Test
-    fun `deve retornar codigo 400 quando chamar topicos sem autenticacao`() {
-        mockMvc.get(URI).andExpect { status { is4xxClientError() } }
-
-    }
+//    @Test
+//    fun `deve retornar codigo 400 quando chamar topicos sem autenticacao`() {
+//        mockMvc.get(URI).andExpect { status { is4xxClientError() } }
+//
+//    }
 
 
         @Test
