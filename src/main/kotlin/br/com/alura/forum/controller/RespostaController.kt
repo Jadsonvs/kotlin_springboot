@@ -4,6 +4,7 @@ import br.com.alura.forum.dto.AtualizacaoRespostaFormDTO
 import br.com.alura.forum.dto.RespostaFormDTO
 import br.com.alura.forum.dto.RespostaViewDTO
 import br.com.alura.forum.service.RespostaService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.cache.annotation.CacheEvict
@@ -17,13 +18,13 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/respostas")
 class RespostaController(
     val respostaService: RespostaService
 ) {
     
     @GetMapping
-    @Cacheable("respostas")
     fun listar(
         @RequestParam(required = false) tituloTopico: String?,
         @PageableDefault() paginacao: Pageable
@@ -38,7 +39,6 @@ class RespostaController(
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = ["respostas"], allEntries = true)
     fun cadastrar(
         @RequestBody @Valid respostaFormDTO: RespostaFormDTO,
         uriBuilder: UriComponentsBuilder
@@ -50,7 +50,6 @@ class RespostaController(
 
     @PutMapping
     @Transactional
-    @CacheEvict(value = ["respostas"], allEntries = true)
     fun atualizar(@RequestBody @Valid formAtualizacao: AtualizacaoRespostaFormDTO): ResponseEntity<RespostaViewDTO>{
         val respostraView = respostaService.atualizar(formAtualizacao)
        return ResponseEntity.ok(respostraView)
@@ -60,7 +59,6 @@ class RespostaController(
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    @CacheEvict(value = ["respostas"], allEntries = true)
     fun deletar(@PathVariable id: Long){
         respostaService.deletar(id)
     }

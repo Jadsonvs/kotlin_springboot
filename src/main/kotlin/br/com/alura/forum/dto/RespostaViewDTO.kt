@@ -1,5 +1,6 @@
 package br.com.alura.forum.dto
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 data class RespostaViewDTO(
@@ -9,4 +10,4 @@ data class RespostaViewDTO(
     val nomeAutor: String,
     val tituloTopico: String,
     val solucao: Boolean
-)
+): Serializable

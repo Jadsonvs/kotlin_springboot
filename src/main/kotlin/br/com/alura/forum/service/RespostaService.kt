@@ -10,6 +10,8 @@ import br.com.alura.forum.model.Resposta
 import br.com.alura.forum.model.Topico
 import br.com.alura.forum.repository.RespostaRepository
 import br.com.alura.forum.repository.TopicoRepository
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -22,7 +24,7 @@ class RespostaService(
     val repository: RespostaRepository,
     val notFoundMessage: String? = "Responsta não encontrada!"
 ) {
-
+    @Cacheable(cacheNames = ["respostas"], key = "#root.method.name")
     fun listar(tituloTopico: String?,paginacao: Pageable): Page<RespostaViewDTO> {
         val respostas = if(tituloTopico == null){
             repository.findAll(paginacao)
@@ -42,14 +44,14 @@ class RespostaService(
             respostaViewConverter.converterFrom(it)
         }
     }
-
+    @CacheEvict(value = ["respostas"], allEntries = true)
     fun cadastrar(respostaFormDTO: RespostaFormDTO): RespostaViewDTO {
         val resposta = respostaFormConverter.converterFrom(respostaFormDTO)
         repository.save(resposta)
 
         return respostaViewConverter.converterFrom(resposta)
     }
-
+    @CacheEvict(value = ["respostas"], allEntries = true)
     fun atualizar(formAtualizacao: AtualizacaoRespostaFormDTO): RespostaViewDTO {
         val resposta = repository.findById(formAtualizacao.id)
             .orElseThrow { NotFoundException(notFoundMessage) }
@@ -65,7 +67,7 @@ class RespostaService(
 
         return respostaViewConverter.converterFrom(respostaAtualizada)
     }
-
+    @CacheEvict(value = ["respostas"], allEntries = true)
     fun deletar(id: Long) {
         repository.deleteById(id)
     }
