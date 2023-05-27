@@ -17,21 +17,19 @@ spring:
     host: localhost
     port: 6379
   mail:
-    host:
-    port:
-    username:
-    password:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 3d6ca2dbc77d0a
+    password: 7d283bc41d7839
     properties:
       mail:
         transport:
-          protocol:
-        debug:
+          protocol: smtp
+        debug: true
         smtp:
-          auth:
+          auth: tru
           starttls:
-            enable:
-
-
+            enable: true
 jwt:
   secret: lEAnEZSLi8qbVhnHe3Cixkq7Ty2wMs6VVu8pjPZsNfrymC5pwvxTFMQmaGIKXCwGXsV47ImKLB9W42bqoy7R8L49fAH233yOkiIhQVSqmPceHduTzrzy0tv6R2YKUlm4tVb7
     ERnOwnT2qdJOt8cjpvd7n2F5bSXsDXp5CBJZOsP3uoHLlHUA2YvdO17NHU58Fi38JCVmVyddMKOVfwk7iD8Ws5xZOsXhBQd8hYi0ml3XTHGY3QTckQWCLkqnAdtZ
