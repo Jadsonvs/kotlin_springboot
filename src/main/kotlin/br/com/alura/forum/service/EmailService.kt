@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class EmailService(
-    private val javaMailSender: JavaMailSender
+    private val emailSender: JavaMailSender
 ) {
 
     fun notification() {
@@ -18,6 +18,7 @@ class EmailService(
             setTo("")
         }
 
+        emailSender.send(message)
 
     }
 
