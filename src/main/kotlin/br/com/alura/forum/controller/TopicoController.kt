@@ -25,7 +25,6 @@ class TopicoController(
 ) {
 
     @GetMapping
-    @Cacheable("topicos")
     fun listar(
         @RequestParam(required = false) nomeCurso: String?,
         @PageableDefault(size = 5, sort = ["dataCriacao"], direction = Sort.Direction.DESC) paginacao: Pageable
@@ -50,7 +49,6 @@ class TopicoController(
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = ["topicos"], allEntries = true)
     fun cadastrarTopico(
         @RequestBody @Valid topicoDTO: TopicoFormDTO,
         uriBuilder: UriComponentsBuilder
@@ -62,7 +60,6 @@ class TopicoController(
 
     @PutMapping
     @Transactional
-    @CacheEvict(value = ["topicos"], allEntries = true)
     fun atualizar(@RequestBody @Valid atualizacaoTopicoDTO: AtualizacaoTopicoFormDTO): ResponseEntity<TopicoViewDTO>{
         val topicoView = service.atualizar(atualizacaoTopicoDTO)
         return ResponseEntity.ok(topicoView)
@@ -71,7 +68,6 @@ class TopicoController(
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    @CacheEvict(value = ["topicos"], allEntries = true)
     fun deletar(@PathVariable id: Long){
         return service.deletar(id)
     }
