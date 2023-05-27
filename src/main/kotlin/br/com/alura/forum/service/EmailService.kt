@@ -9,13 +9,13 @@ class EmailService(
     private val emailSender: JavaMailSender
 ) {
 
-    fun notification() {
+    fun notification(emailAutor: String) {
         val message = SimpleMailMessage()
 
         message.apply {
-            subject = ""
-            text = ""
-            setTo("")
+            subject = "[Alura] Resposta recebida!"
+            text = "Olá, o seu tópico foi respondido. Vamos lá conferir?"
+            setTo(emailAutor)
         }
 
         emailSender.send(message)

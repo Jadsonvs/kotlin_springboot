@@ -7,9 +7,7 @@ import br.com.alura.forum.dto.RespostaFormDTO
 import br.com.alura.forum.dto.RespostaViewDTO
 import br.com.alura.forum.exception.NotFoundException
 import br.com.alura.forum.model.Resposta
-import br.com.alura.forum.model.Topico
 import br.com.alura.forum.repository.RespostaRepository
-import br.com.alura.forum.repository.TopicoRepository
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -19,10 +17,11 @@ import java.time.LocalDateTime
 
 @Service
 class RespostaService(
-    val respostaFormConverter: RespostaFormConverter,
-    val respostaViewConverter: RespostaViewConverter,
-    val repository: RespostaRepository,
-    val notFoundMessage: String? = "Responsta não encontrada!"
+    private val respostaFormConverter: RespostaFormConverter,
+    private val respostaViewConverter: RespostaViewConverter,
+    private val repository: RespostaRepository,
+    private val notFoundMessage: String? = "Responsta não encontrada!",
+    private val emailService: EmailService
 ) {
     @Cacheable(cacheNames = ["respostas"], key = "#root.method.name")
     fun listar(tituloTopico: String?,paginacao: Pageable): Page<RespostaViewDTO> {
@@ -48,6 +47,9 @@ class RespostaService(
     fun cadastrar(respostaFormDTO: RespostaFormDTO): RespostaViewDTO {
         val resposta = respostaFormConverter.converterFrom(respostaFormDTO)
         repository.save(resposta)
+
+        val emailAutor = resposta.autor.email
+        emailService.notification(emailAutor)
 
         return respostaViewConverter.converterFrom(resposta)
     }
