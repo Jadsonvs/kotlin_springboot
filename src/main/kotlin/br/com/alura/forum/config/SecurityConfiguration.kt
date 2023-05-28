@@ -36,6 +36,7 @@ class SecurityConfiguration(
                 .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                 .requestMatchers("/topicos").hasAuthority("LEITURA_ESCRITA")
                 .requestMatchers("/respostas").hasAuthority("LEITURA_ESCRITA")
+                .requestMatchers("/relatorio").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
 
             }

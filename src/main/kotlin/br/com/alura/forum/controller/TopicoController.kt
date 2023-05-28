@@ -37,11 +37,6 @@ class TopicoController(
         return service.buscarPorId(id)
     }
 
-    @GetMapping("/relatorio")
-    fun relatorio(): List<TopicoPorCategoriaDTO> {
-        return service.relatorio()
-    }
-
     @GetMapping("/topico-nao-respondido")
     fun topicoNaoRespondido(): List<TopicoNaoRespondidoViewDTO> {
        return service.topicoNaoRespondido()
