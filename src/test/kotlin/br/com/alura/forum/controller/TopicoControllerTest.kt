@@ -2,7 +2,9 @@ package br.com.alura.forum.controller
 
 
 import br.com.alura.forum.config.JWTUtil
+import br.com.alura.forum.configuration.DatabaseContainerConfiguration
 import br.com.alura.forum.model.Role
+import br.com.alura.forum.model.UsuarioTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,10 +15,11 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
+import org.testcontainers.junit.jupiter.Testcontainers
 
-
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TopicoControllerTest {
+class TopicoControllerTest: DatabaseContainerConfiguration() {
 
     @Autowired
     private lateinit var jwtUtil: JWTUtil
@@ -27,16 +30,17 @@ class TopicoControllerTest {
 
     private lateinit var mockMvc: MockMvc
 
-    private var token: String? = null
+     var token: String? = null
 
     companion object {
-        private const val URI = "/topicos/"
-        private const val URI_ID = URI.plus("%s")//URI com id: "/topicos/{id}
+        private const val URI = "/topicos"
+        private const val  URI_ID = URI.plus("/%s")//URI com id: "/topicos/{id}
     }
 
     private fun gerarToken(): String? {
-        val authorities = mutableListOf(Role(0, "ESCRITA_ESCRITA"))
-        return jwtUtil.generatedToken("jadson@email.com", authorities)
+        val authorities = mutableListOf(Role(1, "LEITURA_ESCRITA"))
+        val usuario = UsuarioTest.build()
+        return jwtUtil.generatedToken(usuario.email, authorities)
     }
     //Gerando um token para autenticação
 
@@ -50,11 +54,11 @@ class TopicoControllerTest {
         }
 
 
-//    @Test
-//    fun `deve retornar codigo 400 quando chamar topicos sem autenticacao`() {
-//        mockMvc.get(URI).andExpect { status { is4xxClientError() } }
-//
-//    }
+    @Test
+    fun `deve retornar codigo 400 quando chamar topicos sem autenticacao`() {
+        mockMvc.get(URI).andExpect { status { is4xxClientError() } }
+
+    }
 
 
         @Test
